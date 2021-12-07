@@ -8,12 +8,12 @@ namespace BitcoinHelperDemo.Tests
 {
     public class HelpersUnitTest
     {
-        // Data for 2020-03-01 to 2020-08-01, over 90 days
-        string filename1 = "../../../test-file1.json";
+        // Data for 2020-03-01 to 2021-08-01, over 90 days
+        readonly string filename1 = "../../../test-file1.json";
         // Data for 2020-01-19 to 2020-01-21, under 90 days
-        string filename2 = "../../../test-file2.json";
+        readonly string filename2 = "../../../test-file2.json";
 
-        public CryptoApiDataClass ReadJsonFile(string filename)
+        private CryptoApiDataClass ReadJsonFile(string filename)
         {
             string json = File.ReadAllText(filename);
             CryptoApiDataClass data = JsonSerializer.Deserialize<CryptoApiDataClass>(json) ?? throw new ArgumentException();
@@ -23,13 +23,6 @@ namespace BitcoinHelperDemo.Tests
         private Helpers CreateDefaultHelpers()
         {
             return new Helpers();
-        }
-
-
-        [Fact]
-        public void HourDataPointsToDays_Should_Throw_When_NotUnixTime()
-        {
-
         }
 
         [Fact]

@@ -13,19 +13,20 @@ namespace BitcoinHelperDemo
 
             for(int i=0; i<data.Count-1; i++)
             {
+                // Add the first datapoint automatically as it is closest to midnight of the first day
                 if (i == 0)
                 {
                     compressedData.Add(data[i]);
                 }
-                /*else if(data[i + 1] == data.Last())
-                {
-                    compressedData.Add(data[i + 1]);
-                    break;
-                }*/
                 else
                 {
                     DateTimeOffset dateItem = DateTimeOffset.FromUnixTimeMilliseconds(Convert.ToInt64(data[i][0]));
                     DateTimeOffset dateItemNext = DateTimeOffset.FromUnixTimeMilliseconds(Convert.ToInt64(data[i + 1][0]));
+                    
+                    // If difference between two datapoints is large, the data is daily data and does not need modification
+                    if ((dateItemNext - dateItem).TotalHours > 22) return data;
+
+                    // Check if current datapoint is before midnight, and next is after. Then check which is closer to midnight and add to list.
                     if(dateItem.Day != dateItemNext.Day)
                     {
                         int res = CloserToMidnight(dateItem, dateItemNext);
@@ -36,18 +37,15 @@ namespace BitcoinHelperDemo
 
                         if (data[i + 1] == data.Last()) break;
                     } 
-                    else 
-                    {
-                        continue;
-                    }
                 }
             }
 
             return compressedData;
         }
 
-        // Compares two DateTimeOffset items and returns 0 if first is closer, and 1 if second is closer
-        // Assumes that days are consecutive and that first days hour is 23, and that second days hour is 00
+        // Compares two DateTimeOffset items and returns 0 if first is closer, and 1 if second is closer.
+        // Assumes that days are consecutive.
+        // Essentially calculates the distance the two dates have to midnight.
         public int CloserToMidnight(DateTimeOffset first, DateTimeOffset second)
         {
             var dt1temp = new DateTime(first.Year, first.Month, first.Day, 00, 00, 00);
