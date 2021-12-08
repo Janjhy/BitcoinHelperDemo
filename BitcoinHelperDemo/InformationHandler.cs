@@ -61,23 +61,23 @@ namespace BitcoinHelperDemo
                 return null;
             }
 
-            List<double> min = data[0];
-            List<double> max = data[1];
-            List<double> tempMin = data[0];
+            List<double> min = modifiedData[0];
+            List<double> max = modifiedData[1];
+            List<double> tempMin = modifiedData[0];
 
             // Loops through data, saving appropriate date and price pairs if the difference grows larger in a positive manner.
             for(int i=1; i<modifiedData.Count; i++)
             {
                 double largestDifference = max[1] - min[1];
-                double currentDifference = data[i][1] - tempMin[1];
+                double currentDifference = modifiedData[i][1] - tempMin[1];
                 if (largestDifference < currentDifference)
                 {
                     min = tempMin;
-                    max = data[i];
+                    max = modifiedData[i];
                 }
-                if(data[i][1] < tempMin[1])
+                if(modifiedData[i][1] < tempMin[1])
                 {
-                    tempMin = data[i];
+                    tempMin = modifiedData[i];
                 }
             }
             return new List<List<double>>{ min, max };

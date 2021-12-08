@@ -21,9 +21,9 @@ namespace BitcoinHelperDemo.Controllers
                 " Available param values are  timemachine, downwardtrend and tradinghigh.";
         }
 
-        // GET: BitcoinHelper/{action}/{YYYY}/{mm}/{dd}/to/{YYYY}/{mm}/{dd}
+        // GET: BitcoinHelper/{param}/{YYYY}/{mm}/{dd}/to/{YYYY}/{mm}/{dd}
         [HttpGet]
-        [Route("{params}/{fromYear:int}/{fromMonth:int}/{fromDay:int}/to/{toYear:int}/{toMonth:int}/{toDay:int}")]
+        [Route("{param}/{fromYear:int}/{fromMonth:int}/{fromDay:int}/to/{toYear:int}/{toMonth:int}/{toDay:int}")]
         public async Task<ActionResult<string>> GetRangeData(string param, int fromYear, int fromMonth, int fromDay, int toYear, int toMonth, int toDay)
         {
             bool isValid = _helpers.ValidateRange(fromYear, fromMonth, fromDay, toYear, toMonth, toDay);

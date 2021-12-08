@@ -27,6 +27,8 @@ namespace BitcoinHelperDemo.Tests
         readonly string filename7 = "../../../test-file7.json";
         // Data example from where range dates are same. So from hour is 00 and to hour is 01 on same day.
         readonly string filename8 = "../../../test-file8.json";
+        // Test data for 2020-01-01 to 2020-03-01
+        readonly string filename9 = "../../../test-file9.json";
 
         private CryptoApiDataClass ReadJsonFile(string filename) {
             string json = File.ReadAllText(filename);
@@ -102,6 +104,21 @@ namespace BitcoinHelperDemo.Tests
             CryptoApiDataClass data = ReadJsonFile(filename8);
             var infoHandler = CreateDefaultInformationHandler();
             List<double> result = infoHandler.HighestValueCalc(data.total_volumes);
+            Assert.Equal(correct, result);
+        }
+
+        [Fact]
+        public void MaximumChronologicalDifferenceCalc_TestFile9_ReturnCorrectPair()
+        {
+            var correct = new List<List<double>> {
+            new List<double> { 1578009753859, 6234.2016911131532 },
+            new List<double> { 1581725043292, 9526.3435732047237 }
+            };
+            CryptoApiDataClass data = ReadJsonFile(filename9);
+            var infoHandler = CreateDefaultInformationHandler();
+
+            List<List<double>> result = infoHandler.MaximumChronologicalDifferenceCalc(data.prices);
+
             Assert.Equal(correct, result);
         }
 
