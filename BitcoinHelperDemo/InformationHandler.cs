@@ -48,7 +48,6 @@ namespace BitcoinHelperDemo
                 if(i == 0) highest = currentDay;
                 else if (currentDay[1] >= highest[1]) highest = currentDay;
             }
-
             return highest;
         }
 

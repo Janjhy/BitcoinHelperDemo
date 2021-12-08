@@ -6,12 +6,4 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Content Remove="test-file1.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="test-file1.json" />
-  </ItemGroup>
-
 </Project>

@@ -12,8 +12,6 @@ namespace BitcoinHelperDemo
 
         public async Task<CryptoApiDataClass> GetCryptoRangeData(string path)
         {
-            //string filename1 = "./test-file1.json";
-            //string json = File.ReadAllText(filename1);
             HttpResponseMessage res = await client.GetAsync(path);
             CryptoApiDataClass data = new CryptoApiDataClass();
 
