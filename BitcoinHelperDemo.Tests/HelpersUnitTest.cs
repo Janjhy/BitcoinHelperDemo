@@ -161,20 +161,20 @@ namespace BitcoinHelperDemo.Tests
         }
 
         [Fact]
-        public void TimestampToString_InputUnixSeconds_ReturnCorrect()
+        public void TimestampToDate_InputUnixSeconds_ReturnCorrect()
         {
             var helpers = CreateDefaultHelpers();
-            DateTimeOffset correct = DateTime.Parse("28/04/2013 00:00:00 +00:00");
+            var correct = new DateTime(2013, 04, 28, 0, 0, 0, DateTimeKind.Utc);
 
             var res = helpers.TimestampToDate(1367107200);
             Assert.Equal(correct, res);
         }
 
         [Fact]
-        public void TimestampToString_InputUnixMilliseconds_ReturnCorrect()
+        public void TimestampToDate_InputUnixMilliseconds_ReturnCorrect()
         {
             var helpers = CreateDefaultHelpers();
-            DateTimeOffset correct = DateTime.Parse("28/04/2013 00:00:00 +00:00");
+            var correct = new DateTime(2013, 04, 28, 0, 0, 0, DateTimeKind.Utc);
 
             var res = helpers.TimestampToDate(1367107200000);
             Assert.Equal(correct, res);

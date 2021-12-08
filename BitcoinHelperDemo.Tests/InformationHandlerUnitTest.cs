@@ -176,7 +176,7 @@ namespace BitcoinHelperDemo.Tests
         public void BuildTimeMachineObject_EqualBuyDate_ReturnEqual()
         {
             var correct = new TimeMachineObject();
-            correct.BuyDate = DateTime.Parse("30/08/2020 00:00:00 +00:00");
+            correct.BuyDate = new DateTime(2020, 08, 30, 0, 0, 0, DateTimeKind.Utc);
             CryptoApiDataClass data = ReadJsonFile(filename5);
             var infoHandler = CreateDefaultInformationHandler();
             TimeMachineObject res = infoHandler.BuildTimeMachineObject(data);
@@ -188,7 +188,7 @@ namespace BitcoinHelperDemo.Tests
         public void BuildTimeMachineObject_EqualSellDate_ReturnEqual()
         {
             var correct = new TimeMachineObject();
-            correct.SellDate = DateTime.Parse("02/09/2020 00:00:00 +00:00");
+            correct.SellDate = new DateTime(2020, 09, 02, 0, 0, 0, DateTimeKind.Utc);
             CryptoApiDataClass data = ReadJsonFile(filename5);
             var infoHandler = CreateDefaultInformationHandler();
             TimeMachineObject res = infoHandler.BuildTimeMachineObject(data);
@@ -381,7 +381,7 @@ namespace BitcoinHelperDemo.Tests
         [Fact]
         public void BuildHighestTradingDayObject_DateEqual()
         {
-            var correct = DateTime.Parse("27/07/2021 00:00:00 +00:00");
+            var correct = new DateTime(2021, 07, 27, 0, 0, 0, DateTimeKind.Utc);
             CryptoApiDataClass data = ReadJsonFile(filename1);
             var infoHandler = CreateDefaultInformationHandler();
             HighestTradingDayObject res = infoHandler.BuildHighestTradingDayObject(data);
