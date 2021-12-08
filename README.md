@@ -1,6 +1,14 @@
 # BitcoinHelperDemoSolution
+This project is an API to handle data from the Crypto API. It uses the ASP.NET framework for the main project and additionally xUnit for unit testing.
+
 
 ## Running 
+This project requires .NET SDK 6.0.
+
+Clone this repo to your computer. 
+Navigate to BitcoinHelperDemo folder and run the project with "dotnet run" command.
+
+The project base url will be http://localhost:5138. This is modifiable in the launch settings.
 
 ## Routes
 
@@ -19,7 +27,8 @@ If valid date range is given, the route returns the longest streak of days as a 
 
 Example request: "BitcoinHelper/downwardtrend/2020/03/1/to/2021/8/01"  
 
-Returns {"ConsecutiveDecreaseDays":8,"Text":null,"From":"2020-03-01T00:00:00+00:00","To":"2021-08-01T00:00:00+00:00"}  
+Returns:   
+{"ConsecutiveDecreaseDays":8,"Text":null,"From":"2020-03-01T00:00:00+00:00","To":"2021-08-01T00:00:00+00:00"}  
 
 
 ### tradinghigh:
@@ -27,12 +36,17 @@ If valid date range is given, the route returns the day and the value of the hig
 
 Example request:  "BitcoinHelper/tradinghigh/2020/03/1/to/2021/8/01"  
 
-Returns {"Day":"2021-01-04T00:00:00+00:00","TradingVolume":146032480261.85092,"From":"2020-03-01T00:00:00+00:00","To":"2021-08-01T00:00:00+00:00"}  
+Returns:  
+{"Day":"2021-01-04T00:00:00+00:00","TradingVolume":146032480261.85092,"From":"2020-03-01T00:00:00+00:00","To":"2021-08-01T00:00:00+00:00"}  
+
 
 ### timemachine:
 If valid date range is given, the route calculates the best pair of days when to buy and sell for maximum profit.
 
 Example request:  "/BitcoinHelper/timemachine/2020/01/1/to/2020/3/01"   
 
-Returns {"BuyDate":"2020-01-03T02:05:40.219+00:00","SellDate":"2020-01-03T12:02:36.99+00:00","Text":null,"From":"2020-01-01T00:00:00+00:00","To":"2020-03-01T00:00:00+00:00"}  
+Returns:  
+{"BuyDate":"2020-01-03T00:02:33.859+00:00","SellDate":"2020-02-15T00:04:03.292+00:00","Text":null,"From":"2020-01-01T00:00:00+00:00","To":"2020-03-01T00:00:00+00:00"} 
  
+ 
+ Note that the dates in the responses are in extended ISO 8601 format. 
