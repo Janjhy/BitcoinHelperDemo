@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BitcoinHelperDemo.Models;
+using System;
+using System.Text.Json;
 
 namespace BitcoinHelperDemo
 {
@@ -11,12 +13,13 @@ namespace BitcoinHelperDemo
         {
             var compressedData = new List<List<double>>();
 
-            for(int i=0; i<data.Count-1; i++)
+            // Add the first datapoint automatically as it is closest to midnight of the first day
+            compressedData.Add(data[0]); ;
+            for (int i=0; i<data.Count-1; i++)
             {
-                // Add the first datapoint automatically as it is closest to midnight of the first day
                 if (i == 0)
                 {
-                    compressedData.Add(data[i]);
+                    continue;
                 }
                 else
                 {
@@ -65,6 +68,69 @@ namespace BitcoinHelperDemo
             else if (time1 > time2) return 1;
 
             return -1;
+        }
+
+        public bool ValidateRange(int fromYear, int fromMonth, int fromDay, int toYear, int toMonth, int toDay)
+        {
+            var from = new DateTime();
+            var to = new DateTime();
+            // Check if entered values are valid to form a date.
+            try
+            {
+                from = new DateTime(fromYear, fromMonth, fromDay);
+                to = new DateTime(toYear, toMonth, toDay);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            // If date is before Unix Epoch return false. 
+            var fromTimestamp = new DateTimeOffset(from).ToUnixTimeSeconds();
+            if(fromTimestamp < 0)
+            {
+                return false;
+            }
+            // Check if from date after before to date.
+            if (from > to)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public string ConstructBitcoinPath(long from, long to)
+        {
+            string basePath = "https://api.coingecko.com/api/v3/coins/bitcoin/market_chart/range?vs_currency=eur&";
+            return $"{basePath}from={from}&to={to}";
+        }
+
+        public DateTimeOffset? TimestampToDate(double timestamp)
+        {
+            try
+            {
+                var date = DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(timestamp));
+                return date;
+            }
+            catch(Exception ex)
+            {
+                try
+                {
+                    var date = DateTimeOffset.FromUnixTimeMilliseconds(Convert.ToInt64(timestamp));
+                    return date;
+                }
+                catch (Exception exc)
+                {
+                    return null;
+                }
+            }
+        }
+
+        public string AddTimesAndSerialize(BaseObject dataObject, double fromTimestamp, double toTimestamp) 
+        {
+            dataObject.From = TimestampToDate(fromTimestamp);
+            dataObject.To = TimestampToDate(toTimestamp);
+            string jsonString = JsonSerializer.Serialize<object>(dataObject);
+            return jsonString;
         }
     }
 }
