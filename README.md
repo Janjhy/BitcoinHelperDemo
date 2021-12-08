@@ -24,6 +24,7 @@ The available param values are:
 
 ### downwardtrend: 
 If valid date range is given, the route returns the longest streak of days as a number, where the price of bitcoin decreased.   
+If prices dont decrease in given range, the "Text" field indicates so, and the consecutive days value is zero.
 
 Example request: "BitcoinHelper/downwardtrend/2020/03/1/to/2021/8/01"  
 
@@ -42,6 +43,7 @@ Returns:
 
 ### timemachine:
 If valid date range is given, the route calculates the best pair of days when to buy and sell for maximum profit.
+If no profit can be made in the given range, the "Text" field indicates so, and the "BuyDate" and "SellDate" values are null.
 
 Example request:  "/BitcoinHelper/timemachine/2020/01/1/to/2020/3/01"   
 
