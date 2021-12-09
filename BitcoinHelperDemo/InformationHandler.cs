@@ -1,5 +1,4 @@
 ﻿using BitcoinHelperDemo.Models;
-using System;
 
 namespace BitcoinHelperDemo
 {
@@ -53,7 +52,7 @@ namespace BitcoinHelperDemo
 
         // Returns a pair of items with the highest positive difference in prices chronologically, pair with
         // smallest negative difference if prices only decrease, or pair with no difference if prices are equal in given range.
-        public List<List<double>> MaximumChronologicalDifferenceCalc(List<List<double>> data)
+        public List<List<double>>? MaximumChronologicalDifferenceCalc(List<List<double>> data)
         {
             var modifiedData = _helpers.HourDataPointsToDays(data);
             if (modifiedData.Count < 2)

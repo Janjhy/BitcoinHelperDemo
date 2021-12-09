@@ -1,5 +1,4 @@
 ﻿using BitcoinHelperDemo.Models;
-using System;
 using System.Text.Json;
 
 namespace BitcoinHelperDemo
@@ -50,8 +49,8 @@ namespace BitcoinHelperDemo
         // Essentially calculates the distance the two dates have to midnight.
         public int CloserToMidnight(DateTimeOffset first, DateTimeOffset second)
         {
-            var dt1temp = new DateTime(first.Year, first.Month, first.Day, 00, 00, 00);
-            var dt2temp = new DateTime(second.Year, second.Month, second.Day, 00, 00, 00);
+            DateTime dt1temp = new DateTime(first.Year, first.Month, first.Day, 00, 00, 00);
+            DateTime dt2temp = new DateTime(second.Year, second.Month, second.Day, 00, 00, 00);
 
             TimeSpan time1 = new TimeSpan();
             TimeSpan time2 = new TimeSpan();
@@ -79,7 +78,7 @@ namespace BitcoinHelperDemo
                 from = new DateTime(fromYear, fromMonth, fromDay);
                 to = new DateTime(toYear, toMonth, toDay);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }
@@ -110,14 +109,14 @@ namespace BitcoinHelperDemo
                 var date = DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(timestamp));
                 return date;
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 try
                 {
                     var date = DateTimeOffset.FromUnixTimeMilliseconds(Convert.ToInt64(timestamp));
                     return date;
                 }
-                catch (Exception exc)
+                catch (Exception)
                 {
                     return null;
                 }

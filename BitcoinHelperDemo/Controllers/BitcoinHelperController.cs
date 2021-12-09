@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using BitcoinHelperDemo.Models;
-using System;
 
 namespace BitcoinHelperDemo.Controllers
 {
@@ -15,7 +14,7 @@ namespace BitcoinHelperDemo.Controllers
         private InformationHandler _informationHandler = new InformationHandler();
 
         [HttpGet]
-        public async Task<ActionResult<string>> Get()
+        public string Get()
         {
             return "Request route is BitcoinHelper/{param}/{YYYY}/{mm}/{dd}/to/{YYYY}/{mm}/{dd}. " +
                 " Available param values are  timemachine, downwardtrend and tradinghigh.";
@@ -60,8 +59,8 @@ namespace BitcoinHelperDemo.Controllers
             }
 
             string jsonString = "";
-            // If the request date was from before first available datapoint from api,
-            // then use the timestamp of first datapoint when calling AddTimesAndSerialize().
+
+
             switch (param)
             {
                 case "timemachine":
